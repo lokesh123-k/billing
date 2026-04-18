@@ -1,15 +1,9 @@
 {
   "name": "billing-backend",
   "version": "1.0.0",
-  "description": "Enterprise Billing System Backend",
-  "main": "src/index.js",
   "type": "module",
   "engines": {
     "node": "20.x"
-  },
-  "scripts": {
-    "start": "node src/index.js",
-    "dev": "node --watch src/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -17,7 +11,6 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.7.0",
-    "puppeteer": "^23.5.0"
+    "mongoose": "^8.7.0"
   }
 }
