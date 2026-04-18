@@ -7,6 +7,8 @@ import authRoutes from './routes/auth.js';
 import productRoutes from './routes/products.js';
 import customerRoutes from './routes/customers.js';
 import invoiceRoutes from './routes/invoices.js';
+import path from 'path';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -14,6 +16,25 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from 'public' directory
+const publicDir = path.join(process.cwd(), 'public');
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir, { recursive: true });
+}
+app.use(express.static(publicDir));
+
+// Favicon handler - serve if exists, return 204 if not
+app.get('/favicon.ico', (req, res) => {
+  const faviconPath = path.join(publicDir, 'favicon.ico');
+  fs.access(faviconPath, fs.constants.F_OK, (err) => {
+    if (err) {
+      // No favicon found - return 204 No Content
+      return res.status(204).send();
+    }
+    res.sendFile(faviconPath);
+  });
+});
 
 connectDB();
 
